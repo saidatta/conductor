@@ -29,6 +29,7 @@ import java.util.Set;
 import javax.servlet.DispatcherType;
 import javax.ws.rs.core.MediaType;
 
+import com.netflix.dyno.connectionpool.impl.lb.AbstractTokenMapSupplier;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.DefaultServlet;
@@ -129,21 +130,20 @@ public class ConductorServer {
 		switch(db) {
 		case redis:		
 		case dynomite:
-			ConnectionPoolConfigurationImpl cp = new ConnectionPoolConfigurationImpl(dynoClusterName).withTokenSupplier(new TokenMapSupplier() {
-				
-				HostToken token = new HostToken(1L, dynoHosts.get(0));
-				
+			ConnectionPoolConfigurationImpl cp = new ConnectionPoolConfigurationImpl(dynoClusterName).withTokenSupplier(new AbstractTokenMapSupplier() {
+
+			String json = "[{\"token\":\"1383429731\",\"hostname\":\"10.156.206.208\",\"zone\":\"us-east-1d\"}\"," +
+					"\"{\"token\":\"12345678\",\"hostname\":\"10.156.175.173\",\"zone\":\"us-east-1c\"}]\"";
+
 				@Override
-				public List<HostToken> getTokens(Set<Host> activeHosts) {
-					return Arrays.asList(token);
+				public String getTopologyJsonPayload(Set<Host> activeHosts) {
+					return json;
 				}
-				
+
 				@Override
-				public HostToken getTokenForHost(Host host, Set<Host> activeHosts) {
-					return token;
+				public String getTopologyJsonPayload(String hostname) {
+					return json;
 				}
-				
-				
 			}).setLocalRack(cc.getAvailabilityZone()).setLocalDataCenter(cc.getRegion());
 			cp.setSocketTimeout(0);
 			cp.setConnectTimeout(0);

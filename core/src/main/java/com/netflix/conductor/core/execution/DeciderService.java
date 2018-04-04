@@ -556,7 +556,7 @@ public class DeciderService {
 
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	private Task getDynamicTasks(WorkflowDef def, Workflow workflow, WorkflowTask taskToSchedule, String taskId, int retryCount, List<Task> tasks) {
-		
+
 		List<WorkflowTask> dynForkTasks = new LinkedList<>();
 		Map<String, Map<String, Object>> tasksInput = new HashMap<>();
 		
@@ -566,6 +566,11 @@ public class DeciderService {
 			
 			Map<String, Object> input = getTaskInput(taskToSchedule.getInputParameters(), workflow, null, null);
 			Object paramValue = input.get(paramName);
+			logger.info("input--"+input.toString());
+			logger.info("paramName--"+paramName);
+
+			logger.info("paramValue--");
+			logger.info(paramValue.toString());
 			dynForkTasks = om.convertValue(paramValue, ListOfWorkflowTasks);
 			Object tasksInputO = input.get(taskToSchedule.getDynamicForkTasksInputParamName());
 			if(! (tasksInputO instanceof Map) ){

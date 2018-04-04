@@ -4,6 +4,8 @@
 FROM node:alpine
 MAINTAINER Netflix OSS <conductor@netflix.com>
 
+RUN npm install -g gulp
+
 # Install the required packages for the node build
 # to run on alpine
 RUN apk update && apk add \

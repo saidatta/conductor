@@ -4,15 +4,12 @@ services:
   conductor-server:
     environment:
       - CONFIG_PROP=config.properties
-    image: docker.repo.frg.tech/conductor-server:02
-    build:
-      context: ../
-      dockerfile: docker/server/Dockerfile
+    image: vmunnangi/conductor-mine:01
     ports:
       - 8080:8080
     links:
       - elasticsearch:es
-#      - dynomite:dyno1
+      - dynomite:dyno1
 
   conductor-ui:
     environment:
@@ -23,8 +20,7 @@ services:
     links:
       - conductor-server
 
-#  dynomite:
-#    image: v1r3n/dynomite
+
 
   elasticsearch:
     image: elasticsearch:2.4
