@@ -4,7 +4,7 @@ services:
   conductor-server:
     environment:
       - CONFIG_PROP=config.properties
-    image: docker.repo.frg.tech/conductor-server:02
+    image: docker.repo.frg.tech/conductor-server-helper-modified:0.0.2
     build:
       context: ../
       dockerfile: docker/server/Dockerfile
@@ -16,12 +16,13 @@ services:
 
   conductor-ui:
     environment:
-      - WF_SERVER=http://conductor-server:8080/api/
+#      - WF_SERVER=http://conductor-server:8080/api/
+      - WF_SERVER=http://127.0.0.1:8080/api/
     image: vmunnangi/conductor-mine-ui:01
     ports:
       - 5000:5000
-    links:
-      - conductor-server
+#    links:
+#      - conductor-server
 
 #  dynomite:
 #    image: v1r3n/dynomite

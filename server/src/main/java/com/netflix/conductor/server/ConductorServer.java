@@ -132,16 +132,27 @@ public class ConductorServer {
 		case dynomite:
 			ConnectionPoolConfigurationImpl cp = new ConnectionPoolConfigurationImpl(dynoClusterName).withTokenSupplier(new AbstractTokenMapSupplier() {
 
-			String json = "[{\"token\":\"1383429731\",\"hostname\":\"10.156.206.208\",\"zone\":\"us-east-1d\"}\"," +
-					"\"{\"token\":\"12345678\",\"hostname\":\"10.156.175.173\",\"zone\":\"us-east-1c\"}]\"";
+//			String json = "[{\"dc\":\"us-east-1\",\"ip\":\"dyno1\",\"hostname\":\"dyno1\",\"zone\":\"us-east-1d\",\"port\":\"8102\"}\"," +
+//					"\"{\"dc\":\"us-east-1\",\"ip\":\"10.156.175.173\",\"hostname\":\"10.156.175.173\",\"zone\":\"us-east-1c\",\"port\":\"8102\"}]\"";
+
+			String json = "[{\"dc\":\"us-east-1\",\"token\":\"1383429731\",\"ip\":\"dyno1\",\"hostname\":\"dyno1\",\"zone\":\"us-east-1d\",\"port\":\"8102\"}\"," +
+					"\"{\"dc\":\"us-east-1\",\"token\":\"12345678\",\"ip\":\"10.156.175.173\",\"hostname\":\"10.156.175.173\",\"zone\":\"us-east-1c\",\"port\":\"8102\"}]\"";
+
+//				String json = "[{\"dc\":\"us-east-1\",\"token\":\"1383429731\",\"ip\":\"10.156.206.208\",\"hostname\":\"10.156.206.208\",\"zone\":\"us-east-1d\",\"port\":\"8102\"}\"," +
+//						"\"{\"dc\":\"us-east-1\",\"token\":\"12345678\",\"ip\":\"127.0.0.1\",\"hostname\":\"127.0.0.1\",\"zone\":\"us-east-1c\",\"port\":\"8102\"}]\"";
+
+//				String json = "[{\"dc\":\"us-east-1\",\"ip\":\"10.156.206.208\",\"hostname\":\"10.156.206.208\",\"zone\":\"us-east-1d\",\"port\":\"8102\"}\"," +
+//						"\"{\"dc\":\"us-east-1\",\"ip\":\"127.0.0.1\",\"hostname\":\"127.0.0.1\",\"zone\":\"us-east-1c\",\"port\":\"8102\"}]\"";
 
 				@Override
 				public String getTopologyJsonPayload(Set<Host> activeHosts) {
+					System.out.println("JSON -list - "+ json);
 					return json;
 				}
 
 				@Override
 				public String getTopologyJsonPayload(String hostname) {
+					System.out.println("JSON -hostname - "+ hostname+ json);
 					return json;
 				}
 			}).setLocalRack(cc.getAvailabilityZone()).setLocalDataCenter(cc.getRegion());

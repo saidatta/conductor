@@ -18,4 +18,5 @@ if [ -z "$CONFIG_PROP" ];
     export config_file=/app/config/$CONFIG_PROP
 fi
 
-java -jar conductor-server-*-all.jar $config_file
+#java -jar conductor-server-*-all.jar $config_file
+java -cp conductor-server-*-all.jar com.netflix.conductor.server.Main $config_file

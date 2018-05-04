@@ -78,7 +78,7 @@ public class ServerModule extends AbstractModule {
 		this.db = db;
 		
 	}
-	
+
 	@Override
 	protected void configure() {
 		
@@ -101,7 +101,7 @@ public class ServerModule extends AbstractModule {
 
 			DynoProxy proxy = new DynoProxy(dynoConn);
 			bind(DynoProxy.class).toInstance(proxy);
-			bind(WorkflowSweeper.class).asEagerSingleton();
+//			bind(WorkflowSweeper.class).asEagerSingleton();
 		}
 
 		install(new ElasticsearchModule());

@@ -24,10 +24,12 @@ RUN mkdir -p /app/config /app/logs /app/libs
 # Copy the project directly onto the image
 COPY ./docker/server/bin /app
 COPY ./docker/server/config /app/config
-COPY ./server/build/libs/conductor-server-*-all.jar /app/libs
+COPY ./server/build/libs/conductor-server-*-SNAPSHOT-all.jar /app/libs
+#COPY ./conductor-server-*-all.jar /app/libs
+#COPY ./conductor-server-*-SNAPSHOT-all-modified.jar /app/libs
 
 # Setup Volume
-VOLUME ["/app/config/config.properties"]
+#VOLUME ["/app/config/config.properties"]
 
 # Copy the files for the server into the app folders
 RUN chmod +x /app/startup.sh
